@@ -5,9 +5,15 @@ using UnityEngine;
 public class Hitbox : MonoBehaviour
 {
     public int damage;
+    public AudioSource source;
+    public AudioClip hitsound;
 
     private void Start()
     {
+        if(GetComponent<AudioSource>() != null)
+        {
+            source = GetComponent<AudioSource>();
+        }
         if(GetComponent<Combat>() != null)
         {
             damage = GetComponent<Combat>().damage;
@@ -19,6 +25,7 @@ public class Hitbox : MonoBehaviour
         if(col.CompareTag("Enemy"))
         {
             col.GetComponent<Combat>().TakeDamage(damage);
+            source.PlayOneShot(hitsound);
         }
     }
 

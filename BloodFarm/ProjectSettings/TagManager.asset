@@ -50,3 +50,9 @@ TagManager:
   - name: Character
     uniqueID: 4278528863
     locked: 0
+  - name: Overlay
+    uniqueID: 254432027
+    locked: 0
+  - name: Weather
+    uniqueID: 4210180517
+    locked: 0

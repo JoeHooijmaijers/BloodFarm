@@ -8,6 +8,9 @@ public class Seeds : MonoBehaviour
     public int bloodGiven;
     public GameObject spawnedPlant;
 
+    public GameEvent watered;
+    public GameEvent bloomed;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -22,6 +25,7 @@ public class Seeds : MonoBehaviour
 
     public void Watered()
     {
+        watered.Raise();
         bloodGiven++;
 
         if(bloodGiven >= bloodRequirement)
@@ -33,7 +37,7 @@ public class Seeds : MonoBehaviour
     public void pickupBlood(int amount)
     {
         bloodGiven += amount;
-
+        watered.Raise();
         if (bloodGiven >= bloodRequirement)
         {
             Bloom();
@@ -42,7 +46,8 @@ public class Seeds : MonoBehaviour
 
     private void Bloom()
     {
-        Instantiate(spawnedPlant, transform.position, Quaternion.identity, transform.root);
+        bloomed.Raise();
+        Instantiate(spawnedPlant, transform.position, Quaternion.identity, transform.parent);
         Destroy(gameObject);
     }
 }

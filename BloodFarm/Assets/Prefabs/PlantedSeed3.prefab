@@ -136,6 +136,8 @@ MonoBehaviour:
   bloodRequirement: 50
   bloodGiven: 0
   spawnedPlant: {fileID: 0}
+  watered: {fileID: 11400000, guid: a2a25bfc1d7e52d49bff66e2e99e7f61, type: 2}
+  bloomed: {fileID: 11400000, guid: c8c3e7901fa90344bb98cdef56028b3e, type: 2}
 --- !u!50 &4211667322600260385
 Rigidbody2D:
   serializedVersion: 4

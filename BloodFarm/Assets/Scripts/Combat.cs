@@ -14,6 +14,7 @@ public class Combat : MonoBehaviour
     public GameObject dropOnDeath;
     public int amountdropped;
 
+    public GameEvent objectDied;
     // Start is called before the first frame update
     void Start()
     {
@@ -60,6 +61,13 @@ public class Combat : MonoBehaviour
     {
         Instantiate(dropOnDeath, transform.position, Quaternion.identity).GetComponent<Pickup>().InstantiateAmount(amountdropped);
         StartCoroutine(IELateDestroy());
+
+        objectDied.Raise();
+
+        if(GetComponent<PlantController>() != null)
+        {
+            GetComponent<PlantController>().FreeParent();
+        }
     }
 
     IEnumerator IELateDestroy()

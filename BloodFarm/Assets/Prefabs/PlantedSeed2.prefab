@@ -123,7 +123,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bloodRequirement: 15
   bloodGiven: 0
-  spawnedPlant: {fileID: 0}
+  spawnedPlant: {fileID: 1654325792506955029, guid: 942908c7167829c4daebc7c64a07476a,
+    type: 3}
+  watered: {fileID: 11400000, guid: a2a25bfc1d7e52d49bff66e2e99e7f61, type: 2}
+  bloomed: {fileID: 11400000, guid: c8c3e7901fa90344bb98cdef56028b3e, type: 2}
 --- !u!114 &7072496412051642670
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -99,6 +99,8 @@ MonoBehaviour:
   bloodGiven: 0
   spawnedPlant: {fileID: 1625646645451252378, guid: f7074b2297fedc343a46b8edffb1364b,
     type: 3}
+  watered: {fileID: 11400000, guid: a2a25bfc1d7e52d49bff66e2e99e7f61, type: 2}
+  bloomed: {fileID: 11400000, guid: c8c3e7901fa90344bb98cdef56028b3e, type: 2}
 --- !u!114 &6737900631080545122
 MonoBehaviour:
   m_ObjectHideFlags: 0
