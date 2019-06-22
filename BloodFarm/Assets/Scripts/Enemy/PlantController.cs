@@ -34,6 +34,7 @@ public class PlantController : MonoBehaviour
     void Start()
     {
         target = GameObject.FindGameObjectWithTag("Player").transform;
+        attackTimer = maxAttackTimer;
     }
 
     // Update is called once per frame
@@ -47,6 +48,10 @@ public class PlantController : MonoBehaviour
             }else if(type == PlantType.Shooting)
             {
                 ShootAttack();
+            }else if(type == PlantType.Exploding)
+            {
+                ExplodeAttack();
+                Destroy(gameObject);
             }
             
             attackTimer = maxAttackTimer;
@@ -65,8 +70,6 @@ public class PlantController : MonoBehaviour
         {
             spawnTimer -= Time.deltaTime;
         }
-        
-
     }
 
     bool InRange()
@@ -84,7 +87,7 @@ public class PlantController : MonoBehaviour
 
     public void FreeParent()
     {
-        if(transform.parent.GetComponent<PlantableTile>() != null)
+        if(transform.parent != null &&transform.parent.GetComponent<PlantableTile>() != null)
         {
             transform.parent.GetComponent<PlantableTile>().BecomeFree();
         }
@@ -100,13 +103,19 @@ public class PlantController : MonoBehaviour
         Vector2 targetLoc = target.position;
         yield return new WaitForSeconds(delay);
         Combat cmb = GetComponent<Combat>();
-        cmb.Attack(targetLoc);
+        cmb.Attack(targetLoc, 0);
     }
 
     public void ShootAttack()
     {
         Combat cmb = GetComponent<Combat>();
-        cmb.Attack(transform.position);
+        cmb.ShootAttack(transform.position, target,0);
+    }
+
+    public void ExplodeAttack()
+    {
+        Combat cmb = GetComponent<Combat>();
+        cmb.ExplodeAttack(transform.position, 0);
     }
 
     public void SpawnMinion()

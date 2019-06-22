@@ -8,6 +8,6 @@ public class BatSpawner : MonoBehaviour
     
     public void SpawnBat()
     {
-        Instantiate(bat, transform.position, Quaternion.identity);
+        Instantiate(bat, gameObject.transform.position, Quaternion.identity);
     }
 }

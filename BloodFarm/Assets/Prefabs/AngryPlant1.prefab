@@ -149,7 +149,8 @@ MonoBehaviour:
   maxHealth: 100
   health: 100
   damage: 5
-  attack: {fileID: 5079163926383945545, guid: 3c3e719b26b9ac14fadaf6ae62f19673, type: 3}
+  attacks:
+  - {fileID: 5079163926383945545, guid: 3c3e719b26b9ac14fadaf6ae62f19673, type: 3}
   spawnable: {fileID: 2574301991833424726, guid: 041f7665176b48d4c8a38c51e3575ec3,
     type: 3}
   dropOnDeath: {fileID: 6118790953900459255, guid: bb3e457dbbe757d489c144a82868f4c1,

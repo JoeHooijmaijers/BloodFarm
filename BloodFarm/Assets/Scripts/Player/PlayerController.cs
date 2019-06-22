@@ -10,11 +10,15 @@ enum FacingDirection
 [RequireComponent(typeof(Combat))]
 public class PlayerController : MonoBehaviour
 {
-    public float movementSpeed;
+    
     [SerializeField]
     private FacingDirection facingDirection;
-    private Combat cmb;
 
+    private Combat cmb;
+    private Animator anim;
+
+    //public float movementSpeed;
+    public float movementSpeed;
     public int seed1, seed2, seed3, seed4;
     public GameObject plantSeed1, plantSeed2, plantSeed3, plantSeed4;
     public GameObject bloodwater;
@@ -30,6 +34,7 @@ public class PlayerController : MonoBehaviour
     {
         facingDirection = FacingDirection.left;
         cmb = GetComponent<Combat>();
+        anim = GetComponent<Animator>();
         _renderer = GetComponent<SpriteRenderer>();
     }
 
@@ -39,7 +44,7 @@ public class PlayerController : MonoBehaviour
         Movement();
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            Attack();
+            PlayerAttack();
         }
 
         if (Input.GetKeyDown(KeyCode.Q))
@@ -70,33 +75,79 @@ public class PlayerController : MonoBehaviour
         float moveX = Input.GetAxisRaw("Horizontal") * (movementSpeed * Time.deltaTime);
         float moveY = Input.GetAxisRaw("Vertical") * (movementSpeed * Time.deltaTime);
 
-        Vector2 targetloc = new Vector2(moveX, moveY);
+        Vector3 targetloc = new Vector2(moveX, moveY);
         if(targetloc.x > 0)
         {
             facingDirection = FacingDirection.right;
+            anim.SetBool("Walking", true);
             _renderer.flipX = true;
         }
         else if(targetloc.x < 0)
         {
             facingDirection = FacingDirection.left;
+            anim.SetBool("Walking", true);
             _renderer.flipX = false;
+        }
+        else if(targetloc.y != 0)
+        {
+            anim.SetBool("Walking", true);
+        }
+        else
+        {
+            anim.SetBool("Walking", false);
         }
         transform.Translate(targetloc);
         
     }
 
-    private void Attack()
+    private void PlayerAttack()
+    {
+        anim.SetTrigger("Attack");
+    }
+
+    public void InstantiateAttack(int index)
     {
         Vector3 posL = new Vector3(transform.position.x - 1, transform.position.y);
         Vector3 posR = new Vector3(transform.position.x + 1, transform.position.y);
-        if(facingDirection == FacingDirection.left)
+        if (index == 2)
         {
-            cmb.Attack(posL);
+            cmb.Attack(transform.position, index);
+        }
+        else if (facingDirection == FacingDirection.left)
+        {
+            cmb.Attack(posL, index);
         }
         else
         {
-            cmb.Attack(posR);
+            cmb.Attack(posR, index);
         }
+        
+    }
+
+    [SerializeField]
+    private void SetAttackState(string StateName)
+    {
+        DisableAllAnimatorBools();
+        anim.SetBool(StateName, true);
+        StartCoroutine(IEDisableAnimatorBool(StateName));
+    }
+
+    private void DisableAllAnimatorBools()
+    {
+        //anim.SetBool("Walking", false);
+        anim.SetBool("AttackingStage1", false);
+        anim.SetBool("AttackingStage2", false);
+    }
+
+    private void DisableAnimatorBool(string BoolName)
+    {
+        anim.SetBool(BoolName, false);
+    }
+
+    private IEnumerator IEDisableAnimatorBool(string BoolName)
+    {
+        yield return new WaitForSeconds(.3f);
+        DisableAnimatorBool(BoolName);
     }
 
     //private void OnTriggerStay2D(Collider2D collision)
@@ -210,11 +261,13 @@ public class PlayerController : MonoBehaviour
         Vector3 posR = new Vector3(transform.position.x + 1, transform.position.y);
         if (facingDirection == FacingDirection.left)
         {
-            Instantiate(bloodwater, posL, Quaternion.identity, currentTile.transform);
+            GameObject water = GameObject.Instantiate(bloodwater, posL, Quaternion.identity, currentTile.transform);
+            water.GetComponent<Flipping>().SetParent(transform);
         }
         else
         {
-            Instantiate(bloodwater, posR, Quaternion.identity, currentTile.transform);
+            GameObject water = GameObject.Instantiate(bloodwater, posR, Quaternion.identity, currentTile.transform);
+            water.GetComponent<Flipping>().SetParent(transform);
         }
         cmb.TakeDamage(1);
     }

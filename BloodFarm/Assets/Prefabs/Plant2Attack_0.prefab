@@ -170,6 +170,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 0
+  source: {fileID: 0}
+  hitsound: {fileID: 0}
+  vars: {fileID: 11400000, guid: 90c44f11197a0b3419b235e2d4bcb646, type: 2}
 --- !u!50 &5370453999904881015
 Rigidbody2D:
   serializedVersion: 4

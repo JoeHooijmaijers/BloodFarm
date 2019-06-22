@@ -21,7 +21,6 @@ public class Score : MonoBehaviour
         if(scoreText == null)
         {
             scoreText = gameObject.GetComponent<Text>();
-            UpdateScore();
         }       
     }
 

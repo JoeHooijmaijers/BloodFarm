@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class Projectile : MonoBehaviour
 {
-    private Vector2 targetPos;
+    private Transform target;
+    private Vector2 targetLoc;
     private Vector2 position;
     [SerializeField]
     private bool rotating;
@@ -17,17 +18,30 @@ public class Projectile : MonoBehaviour
     [SerializeField]
     private float movementSpeed;
 
+    private BoxCollider2D BC;
     private SpriteRenderer _renderer;
     // Start is called before the first frame update
     void Start()
     {
         _renderer = GetComponent<SpriteRenderer>();
+        BC = GetComponent<BoxCollider2D>();
+        BC.enabled = false;
+        StartCoroutine(DelayedActivation());
     }
 
     // Update is called once per frame
     void Update()
     {
-        targetPos = GameObject.FindGameObjectWithTag("Player").transform.position;
+        Vector2 targetPos;
+        if (target != null)
+        {
+            targetPos = target.position;
+        }
+        else
+        {
+            targetPos = targetLoc;
+        }
+        
         position = transform.position;
         if(duration >= maxDuration)
         {
@@ -62,6 +76,22 @@ public class Projectile : MonoBehaviour
             }
         }
         
+    }
+
+    IEnumerator DelayedActivation()
+    {
+        yield return new WaitForSeconds(0.2f);
+        BC.enabled = true;
+    }
+
+    public void SetTarget(Transform Target)
+    {
+        target = Target;
+    }
+
+    public void SetTarget(Vector2 TargetLoc)
+    {
+        targetLoc = TargetLoc;
     }
 
     private void OnCollisionEnter2D(Collision2D collision)

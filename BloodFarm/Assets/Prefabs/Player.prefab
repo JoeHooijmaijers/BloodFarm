@@ -114,8 +114,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 562f1f81d6f299945a5f6d07c7b29822, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementSpeed: 6
   facingDirection: 0
+  movementSpeed: 5
   seed1: 0
   seed2: 0
   seed3: 0
@@ -146,7 +146,10 @@ MonoBehaviour:
   maxHealth: 100
   health: 100
   damage: 10
-  attack: {fileID: 8215011653575128357, guid: 2666a0a2a5d29f64ca7d7f89ba70e6fe, type: 3}
+  attacks:
+  - {fileID: 7508224829105998927, guid: cf418e079fa8baf40bf11cb4bd3ae645, type: 3}
+  - {fileID: 8215011653575128357, guid: 2666a0a2a5d29f64ca7d7f89ba70e6fe, type: 3}
+  - {fileID: 1150250376695794523, guid: e49b8fcc13a96ab468e3e34ee665c264, type: 3}
   spawnable: {fileID: 0}
   dropOnDeath: {fileID: 6118790953900459255, guid: bb3e457dbbe757d489c144a82868f4c1,
     type: 3}
@@ -359,7 +362,7 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 25
+          m_IntArgument: 15
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0

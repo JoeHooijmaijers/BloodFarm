@@ -5,31 +5,40 @@ using UnityEngine;
 public class Flipping : MonoBehaviour
 {
     private Transform parent;
+    private Transform target;
 
     private void Start()
     {
-        parent = GameObject.FindGameObjectWithTag("Player").transform;
-        if(parent.position.x > transform.position.x)
+        if (parent != null)
         {
-            GetComponent<SpriteRenderer>().flipX = false;
-        }
-        else
-        {
-            GetComponent<SpriteRenderer>().flipX = true;
+            if (parent.position.x > transform.position.x)
+            {
+                GetComponent<SpriteRenderer>().flipX = false;
+            }
+            else
+            {
+                GetComponent<SpriteRenderer>().flipX = true;
+            }
         }
     }
 
     private void Update()
     {
-        if (parent.position.x > transform.position.x)
+        if(parent != null)
         {
-            GetComponent<SpriteRenderer>().flipX = false;
-        }
-        else
-        {
-            GetComponent<SpriteRenderer>().flipX = true;
+            if (parent.position.x > transform.position.x)
+            {
+                GetComponent<SpriteRenderer>().flipX = false;
+            }
+            else
+            {
+                GetComponent<SpriteRenderer>().flipX = true;
+            }
         }
     }
 
-
+    public void SetParent(Transform Parent)
+    {
+        parent = Parent;
+    }
 }
